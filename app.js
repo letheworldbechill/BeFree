@@ -1,4 +1,4 @@
-// Raumpsychologie v3.2 – Clean build
+// Raumpsychologie v3.1 – Alle Module, DE Standard
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 }
@@ -35,7 +35,7 @@ $('#logo').addEventListener('click', ()=>{
   tapT = now;
 });
 
-// ========== Wohnung Check ==========
+// ========== Modul: Wohnung Check ==========
 const rooms = [
   {key:'schlaf', name:'🛏 Schlafzimmer'},
   {key:'wohn', name:'🛋 Wohnzimmer'},
@@ -102,7 +102,7 @@ $('#home-repeat').addEventListener('click', ()=>{
   updateHomeTotal();
 });
 
-// ========== RaumScan ==========
+// ========== Modul: RaumScan ==========
 const scanFields = [
   ['🧱 Boden','boden'], ['💨 Luft','luft'], ['💡 Licht','licht'], ['🔊 Klang','klang'], ['🧺 Ordnung','ordnung']
 ];
@@ -135,13 +135,13 @@ $('#scan-reset').addEventListener('click', ()=>{
   scanFields.forEach(([_,k])=>$('#s-'+k).value=5); scanUpdate();
 });
 
-// ========== Vorcheck (Resonanz/Bindung) ==========
+// ========== Vorcheck steuern (für reso/bind) ==========
 let nextTarget = null;
 function startPrecheck(target){ nextTarget = target; show('precheck'); }
 $('#pre-next').addEventListener('click', ()=>{ show(nextTarget); });
 $('#pre-cancel').addEventListener('click', ()=>{ show('home'); });
 
-// ========== Resonanz ==========
+// ========== Modul: Resonanz ==========
 const resoQs = [
   'Ich frage nach, bevor ich annehme.',
   'Ich erinnere mich an Dinge, die dem anderen wichtig sind.',
@@ -172,7 +172,7 @@ function resoUpdate(){
 resoUpdate();
 $('#reso-done').addEventListener('click', ()=>{ toast('Abgeschlossen'); aftershock(); });
 
-// ========== Bindung ==========
+// ========== Modul: Bindung ==========
 const lovebombQs = [
   'Tempo & Überwältigung: Zuwendung schneller als Vertrauen wächst.',
   'Konsistenz: Worte und Gesten bleiben stabil, auch wenn ich Grenzen setze. (invertiert)',
@@ -261,9 +261,9 @@ function bindResult(){
   const res = $('#bind-result'); let label='–', color='#ffd166', tip='—';
   if (final>=75){ label='Klar & tragfähig'; color='#8ce0c0'; tip='Vertrauen auf Basis von Realität.'; }
   else if (final>=50){ label='Muster prüfen'; color='#fff3bf'; tip='Achtsam bleiben, Tempo rausnehmen.'; }
-  else if (final>=25){ label='Innere Alarmzone'; color:'#ffdfbf'; tip='Muster wiederholt sich – Distanz aufbauen.'; }
+  else if (final>=25){ label='Innere Alarmzone'; color='#ffdfbf'; tip='Muster wiederholt sich – Distanz aufbauen.'; }
   else { label='Selbstschutz aktivieren'; color='#ffc9c9'; tip='Ruhig, klar, höflich beenden.'; }
-  res.textContent = `${label} · ${final}%`; res.style.background = color; $('#bind-tip').textContent = tip + (yn.warn? ' • (Ja/Nein‑Warnsignal aktiv)' : '');
+  res.textContent = `${label} · ${final}%`; res.style.background = color; $('#bind-tip').textContent = tip + (yn.warn? ' • (Ja/Nein-Warnsignal aktiv)' : '');
   return final;
 }
 $('#bind-done').addEventListener('click', ()=>{ bindResult(); aftershock(); });
@@ -282,7 +282,7 @@ function aftershock(){
   localStorage.setItem('rp_aftershock', new Date().toISOString());
 }
 
-// ========== Utils ==========
+// ========== Modal helpers ==========
 function modal(html){ const m=$('#modal'); m.innerHTML=html; m.showModal(); }
 function closeModal(){ $('#modal').close(); }
 function today(){ return new Date().toISOString().slice(0,10); }
